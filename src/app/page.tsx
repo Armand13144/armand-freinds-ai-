@@ -28,7 +28,6 @@ export default function Chat() {
     setActivePersonality(id);
     const newPersonality = personalities[id];
     
-    // Inject a system message into the chat UI
     setMessages([
       ...messages,
       {
@@ -38,7 +37,6 @@ export default function Chat() {
       }
     ]);
     
-    // Focus input after switching
     setTimeout(() => {
       inputRef.current?.focus();
     }, 100);
@@ -52,7 +50,6 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-950 text-gray-100">
-      {/* Header & Model Selector */}
       <div className="bg-gray-900 border-b border-gray-800 p-4">
         <div className="max-w-4xl mx-auto flex flex-col gap-4">
           <div className="flex justify-between items-center">
@@ -73,12 +70,12 @@ export default function Chat() {
               <button
                 key={p.id}
                 onClick={() => handleSwitchModel(p.id)}
-                className={\`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
-                  \${activePersonality === p.id 
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all
+                  ${activePersonality === p.id 
                     ? 'bg-blue-600 text-white shadow-md shadow-blue-900/20' 
                     : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
                   }
-                \`}
+                `}
               >
                 <span className="text-lg">{p.icon}</span>
                 <span className="hidden sm:inline">{p.name}</span>
@@ -89,14 +86,12 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* Current Model Indicator */}
       <div className="bg-gray-800/50 py-2 px-4 text-center border-b border-gray-800 shadow-sm">
         <p className="text-sm text-gray-400 flex items-center justify-center gap-2">
           Currently chatting with <span className="font-semibold text-blue-400">{activeModel.icon} {activeModel.name}</span>
         </p>
       </div>
 
-      {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6">
         <div className="max-w-4xl mx-auto space-y-6">
           {messages.length === 0 ? (
@@ -106,7 +101,7 @@ export default function Chat() {
             </div>
           ) : (
             messages.map((m) => (
-              <div key={m.id} className={\`flex \${m.role === 'user' ? 'justify-end' : 'justify-start'}\`}>
+              <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {m.role === 'system' ? (
                   <div className="w-full flex justify-center my-2">
                     <div className="bg-gray-800/80 text-gray-400 text-xs px-4 py-1.5 rounded-full border border-gray-700 shadow-sm backdrop-blur-sm">
@@ -114,18 +109,18 @@ export default function Chat() {
                     </div>
                   </div>
                 ) : (
-                  <div className={\`flex max-w-[85%] sm:max-w-[75%] gap-3 \${m.role === 'user' ? 'flex-row-reverse' : 'flex-row'}\`}>
-                    <div className={\`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm
-                      \${m.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}
-                    \`}>
+                  <div className={`flex max-w-[85%] sm:max-w-[75%] gap-3 ${m.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                    <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm
+                      ${m.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}
+                    `}>
                       {m.role === 'user' ? <User size={16} /> : activeModel.icon}
                     </div>
-                    <div className={\`px-4 py-3 rounded-2xl whitespace-pre-wrap leading-relaxed shadow-sm
-                      \${m.role === 'user' 
+                    <div className={`px-4 py-3 rounded-2xl whitespace-pre-wrap leading-relaxed shadow-sm
+                      ${m.role === 'user' 
                         ? 'bg-blue-600 text-white rounded-tr-sm' 
                         : 'bg-gray-800 text-gray-100 rounded-tl-sm border border-gray-700'
                       }
-                    \`}>
+                    `}>
                       {m.content}
                     </div>
                   </div>
@@ -153,7 +148,6 @@ export default function Chat() {
         </div>
       </div>
 
-      {/* Input Form */}
       <div className="bg-gray-900 border-t border-gray-800 p-4">
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto flex gap-2">
           <input
@@ -161,7 +155,7 @@ export default function Chat() {
             className="flex-1 bg-gray-800 text-gray-100 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/50 border border-gray-700 placeholder-gray-400 shadow-sm"
             value={input}
             onChange={handleInputChange}
-            placeholder={\`Message \${activeModel.name}...\`}
+            placeholder={`Message ${activeModel.name}...`}
             disabled={isLoading}
           />
           <button 
