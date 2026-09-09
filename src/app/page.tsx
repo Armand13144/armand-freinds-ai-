@@ -108,6 +108,13 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center bg-slate-950 text-slate-50 font-sans">
       <div className="w-full max-w-4xl p-4 flex flex-col h-screen">
         
+        {/* Under-update banner */}
+        <div className="flex items-center justify-center gap-2 bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs px-4 py-2.5 rounded-lg mb-3">
+          <span className="animate-pulse">🔧</span>
+          <span>AI engine is currently being upgraded — responses may vary. Updates coming soon!</span>
+          <span className="animate-pulse">🔧</span>
+        </div>
+
         {/* Header */}
         <header className="flex items-center justify-between py-5 border-b border-slate-800">
           <div className="flex items-center gap-3">
