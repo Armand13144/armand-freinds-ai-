@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 import { streamText, Message } from 'ai';
 import { personalities, PersonalityId } from '@/lib/personalities';
 
@@ -12,9 +12,9 @@ export async function POST(req: Request) {
     const personality = personalities[personalityId as PersonalityId] || personalities.KurdoAI;
 
     // Check if API key is configured
-    if (!process.env.OPENAI_API_KEY) {
+    if (!process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
       // Return a simple mock stream if no API key is set
-      const mockText = `(Mock Mode) This is a fake response from ${personality.name} because OPENAI_API_KEY is not set in environment variables.`;
+      const mockText = `(Mock Mode) This is a fake response from ${personality.name} because GOOGLE_GENERATIVE_AI_API_KEY is not set in environment variables.`;
       
       const encoder = new TextEncoder();
       const stream = new ReadableStream({
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const apiMessages = messages.filter((m: any) => m.role === 'user' || m.role === 'assistant');
 
     const result = await streamText({
-      model: openai('gpt-4o-mini'),
+      model: google('models/gemini-1.5-flash'),
       system: personality.systemPrompt,
       messages: apiMessages,
     });
