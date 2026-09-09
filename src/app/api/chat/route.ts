@@ -41,7 +41,7 @@ export async function POST(req: Request) {
 
     const result = await streamText({
       // @ts-ignore - Bypass version mismatch between @ai-sdk/google and ai packages
-      model: google('models/gemini-1.5-flash'),
+      model: google('gemini-3.8-flash'),
       system: personality.systemPrompt,
       messages: apiMessages,
     });
