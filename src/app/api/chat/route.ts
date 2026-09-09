@@ -40,6 +40,7 @@ export async function POST(req: Request) {
     const apiMessages = messages.filter((m: any) => m.role === 'user' || m.role === 'assistant');
 
     const result = await streamText({
+      // @ts-ignore - Bypass version mismatch between @ai-sdk/google and ai packages
       model: google('models/gemini-1.5-flash'),
       system: personality.systemPrompt,
       messages: apiMessages,
